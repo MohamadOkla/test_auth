@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -42,8 +43,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       Get.offAll(() => const HomeScreen());
     } on FirebaseAuthException catch (e) {
-      Get.snackbar('Sign Up Failed', e.message ?? 'Unknown error',
-          snackPosition: SnackPosition.BOTTOM);
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.noHeader, // Hide default header
+        animType: AnimType.rightSlide,
+        title: 'Error',
+        desc: 'Sign Up Failed: ${e.message}',
+        btnCancelOnPress: () {},
+        btnOkOnPress: () {},
+        customHeader: Icon(
+          Icons.error,
+          color: Colors.red,
+          size: 90, // Smaller icon size
+        ),
+      ).show();
     } catch (e) {
       Get.snackbar('Error', e.toString(), snackPosition: SnackPosition.BOTTOM);
     }

@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,10 +37,26 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       Get.offAll(() => const HomeScreen());
+      // ignore: unused_catch_clause
+      // ...existing code...
     } on FirebaseAuthException catch (e) {
-      Get.snackbar('Login Failed', e.message ?? 'Unknown error',
-          snackPosition: SnackPosition.BOTTOM);
-    } catch (e) {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.noHeader, // Hide default header
+        animType: AnimType.rightSlide,
+        title: 'Error',
+        desc: 'Email or password is error',
+        btnCancelOnPress: () {},
+        btnOkOnPress: () {},
+        customHeader: Icon(
+          Icons.error,
+          color: Colors.red,
+          size: 90, // Smaller icon size
+        ),
+      ).show();
+    }
+// ...existing code...
+    catch (e) {
       Get.snackbar('Error', e.toString(), snackPosition: SnackPosition.BOTTOM);
     }
   }
@@ -147,8 +164,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: _login,
                     ),
                     SizedBox(height: size.height * 0.03),
-
-                    // كلمة OR مع خطين على الجانبين
                     Row(
                       children: [
                         Expanded(
@@ -176,10 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ],
                     ),
-
                     SizedBox(height: size.height * 0.03),
-
-                    // زر تسجيل الدخول بجوجل
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton.icon(
@@ -209,9 +221,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: _loginWithGoogle,
                       ),
                     ),
-
                     SizedBox(height: size.height * 0.03),
-
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

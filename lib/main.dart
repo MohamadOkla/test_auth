@@ -37,8 +37,8 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: FirebaseAuth.instance.currentUser == null
-          ?  LoginScreen()
-          :  HomeScreen(),
+          ? LoginScreen()
+          : HomeScreen(),
       builder: (context, child) {
         SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
         return child!;

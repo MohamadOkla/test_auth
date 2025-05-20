@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TextFormFiledWidget extends StatefulWidget {
-  TextFormFiledWidget({super.key, required this.labelText, this.controller});
+  TextFormFiledWidget({super.key, required this.labelText, this.controller, required TextInputType keyboardType, required String? Function(dynamic value) validator, required bool obscureText});
   final String labelText;
   final TextEditingController? controller;
 

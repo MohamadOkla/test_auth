@@ -1,14 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:projects/feature/auth/view/home_screen.dart';
-import 'package:projects/feature/auth/view/login_screen.dart';
+import 'feature/auth/view/home_screen.dart';
+import 'feature/auth/view/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -21,23 +22,27 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
+    super.initState();
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
-        print(
-            '=======================================User is currently signed out!');
+        print('User is currently signed out!');
       } else {
-        print('================================== User is signed in!');
+        print('User is signed in!');
       }
     });
-    super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: FirebaseAuth.instance.currentUser == null
-          ? LoginScreen()
-          : HomeScreen(),
+          ?  LoginScreen()
+          :  HomeScreen(),
+      builder: (context, child) {
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+        return child!;
+      },
     );
   }
 }

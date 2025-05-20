@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class ElevatedButtonWidget extends StatefulWidget {
   ElevatedButtonWidget(
-      {super.key, required this.text, required this.color, this.onPressed});
+      {super.key, required this.text, required this.color, required this.onPressed});
   final String text;
   final Color color;
   final VoidCallback? onPressed;
